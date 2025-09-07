@@ -3,35 +3,23 @@ html, body {
   padding: 0;
   width: 100%;
   height: 100%;
-  background: black;
   overflow: hidden;
+  background: #000; /* fallback background while loading images */
 }
 
-.carousel-wrapper {
+.slideshow {
   width: 100vw;
   height: 100vh;
-  overflow: hidden;
   position: relative;
 }
 
-.carousel {
-  display: flex;
-  flex-wrap: nowrap;
+.slideshow img {
   position: absolute;
   top: 0;
   left: 0;
-}
-
-.slide {
-  min-width: 100vw;
+  width: 100vw;
   height: 100vh;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.slide img {
-  max-width: 100%;
-  max-height: 100%;
-  object-fit: contain;
+  object-fit: contain; /* fits entire image on screen, no cropping */
+  opacity: 0;
+  transition: opacity 1s ease-in-out; /* smooth fade */
 }
