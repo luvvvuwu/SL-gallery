@@ -16,13 +16,14 @@ html, body {
 
 .carousel {
   display: flex;
+  flex-wrap: nowrap;
   position: absolute;
   top: 0;
   left: 0;
 }
 
 .slide {
-  min-width: 100vw;   /* each slide = viewport width */
+  min-width: 100vw;
   height: 100vh;
   display: flex;
   align-items: center;
@@ -32,5 +33,5 @@ html, body {
 .slide img {
   max-width: 100%;
   max-height: 100%;
-  object-fit: contain; /* entire image visible */
+  object-fit: contain;
 }
