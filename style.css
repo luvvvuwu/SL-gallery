@@ -1,0 +1,40 @@
+:root {
+  /* Change this to control speed (e.g., 15s is faster, 45s is slower) */
+  --duration: 30s;
+}
+
+html, body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  width: 100%;
+  background: #000; /* dark mode */
+  overflow: hidden; /* no scrollbars */
+}
+
+.carousel {
+  display: flex;
+  height: 100%;
+  width: max-content;                 /* width grows with images */
+  animation: scroll var(--duration) linear infinite;
+  will-change: transform;
+}
+
+.carousel img {
+  height: 100vh;                      /* fill the prim/browser viewport */
+  width: 100vw;
+  object-fit: cover;                  /* cover without distortion */
+  flex-shrink: 0;                     /* keep each slide full-screen */
+  user-select: none;
+  -webkit-user-drag: none;
+}
+
+@keyframes scroll {
+  0%   { transform: translateX(0); }
+  100% { transform: translateX(-50%); } /* half, because we’ll clone once */
+}
+
+/* Optional: reduce motion for users who prefer it */
+@media (prefers-reduced-motion: reduce) {
+  .carousel { animation: none; }
+}
