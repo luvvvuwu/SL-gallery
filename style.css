@@ -7,29 +7,37 @@ html, body {
   padding: 0;
   height: 100%;
   width: 100%;
-  background: black; /* dark mode */
-  overflow: hidden;  /* no scrollbars */
+  background: black;
+  overflow: hidden;
+}
+
+/* Wrapper ensures full-screen viewport */
+.carousel-wrapper {
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
 }
 
 .carousel {
   display: flex;
-  height: 100%;
-  width: max-content;
+  flex-wrap: nowrap;   /* keep images in a row */
   animation: scroll var(--duration) linear infinite;
-  align-items: center;   /* center images vertically */
-  justify-content: center; /* center horizontally */
 }
 
 .carousel img {
-  max-width: 100vw;    /* scale to fit width */
-  max-height: 100vh;   /* scale to fit height */
-  object-fit: contain;  /* fit entire image without cropping */
+  max-width: 100vw;    /* fit image within viewport */
+  max-height: 100vh;
+  object-fit: contain;
   flex-shrink: 0;
+  margin-right: 0;     /* no spacing between images */
   user-select: none;
   -webkit-user-drag: none;
 }
 
 @keyframes scroll {
   0%   { transform: translateX(0); }
-  100% { transform: translateX(-50%); }
+  100% { transform: translateX(-50%); } /* move by half of carousel (JS duplicates images) */
 }
