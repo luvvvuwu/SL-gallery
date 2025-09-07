@@ -1,32 +1,25 @@
-const carousel = document.getElementById('carousel');
-const slides = Array.from(carousel.children);
-
-// Duplicate slides for seamless looping
-slides.forEach(slide => {
-  const clone = slide.cloneNode(true);
-  carousel.appendChild(clone);
-});
-
-let position = 0;
-const speed = 1; // pixels per frame, increase to scroll faster
-
-// Total width of one set of slides
-const slideWidth = slides[0].getBoundingClientRect().width;
-const totalWidth = slideWidth * slides.length;
-
-function animate() {
-  position -= speed;
-
-  // Reset when first set has scrolled completely
-  if (Math.abs(position) >= totalWidth) {
-    position = 0;
-  }
-
-  carousel.style.transform = `translateX(${position}px)`;
-  requestAnimationFrame(animate);
+html, body {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  background: #000; /* fallback background while loading images */
 }
 
-// Wait until images have loaded to get correct widths
-window.addEventListener('load', () => {
-  animate();
-});
+.slideshow {
+  width: 100vw;
+  height: 100vh;
+  position: relative;
+}
+
+.slideshow img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  object-fit: contain; /* fits entire image on screen, no cropping */
+  opacity: 0;
+  transition: opacity 1s ease-in-out; /* smooth fade */
+}
