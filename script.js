@@ -1,25 +1,27 @@
-html, body {
-  margin: 0;
-  padding: 0;
-  width: 100%;
-  height: 100%;
-  overflow: hidden;
-  background: #000; /* fallback background while loading images */
-}
+// Add your image URLs here
+const images = [
+  'https://picsum.photos/id/1015/1920/1080',
+  'https://picsum.photos/id/1016/1920/1080',
+  'https://picsum.photos/id/1018/1920/1080'
+];
 
-.slideshow {
-  width: 100vw;
-  height: 100vh;
-  position: relative;
-}
+const slideshow = document.getElementById('slideshow');
 
-.slideshow img {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
-  object-fit: contain; /* fits entire image on screen, no cropping */
-  opacity: 0;
-  transition: opacity 1s ease-in-out; /* smooth fade */
-}
+// Create img elements
+images.forEach((src, index) => {
+  const img = document.createElement('img');
+  img.src = src;
+  img.alt = `Slide ${index+1}`;
+  if(index === 0) img.style.opacity = 1; // first image visible
+  slideshow.appendChild(img);
+});
+
+let current = 0;
+const slides = slideshow.querySelectorAll('img');
+const intervalTime = 5000; // 5 seconds per slide
+
+setInterval(() => {
+  slides[current].style.opacity = 0;
+  current = (current + 1) % slides.length;
+  slides[current].style.opacity = 1;
+}, intervalTime);
