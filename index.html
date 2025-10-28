@@ -1,15 +1,75 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Fullscreen Slideshow</title>
-  <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Fullscreen Video Player</title>
+  <style>
+    html, body {
+      margin: 0;
+      padding: 0;
+      overflow: hidden; /* Removes scrollbars */
+      height: 100%;
+      background: black;
+    }
+
+    #upload-container {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      text-align: center;
+      color: white;
+      font-family: sans-serif;
+    }
+
+    video {
+      width: 100vw;
+      height: 100vh;
+      object-fit: cover;
+      display: none; /* Hidden until loaded */
+    }
+
+    input[type="file"] {
+      background: rgba(255,255,255,0.1);
+      color: white;
+      border: 1px solid white;
+      padding: 10px;
+      cursor: pointer;
+      border-radius: 5px;
+    }
+  </style>
 </head>
 <body>
-  <div class="slideshow" id="slideshow">
-    <!-- Images will be inserted by JS -->
+  <div id="upload-container">
+    <h1>Upload a Video</h1>
+    <input type="file" id="file-input" accept="video/*" />
   </div>
 
-  <script src="script.js"></script>
+  <video id="video" controls></video>
+
+  <script>
+    const fileInput = document.getElementById('file-input');
+    const video = document.getElementById('video');
+    const uploadContainer = document.getElementById('upload-container');
+
+    fileInput.addEventListener('change', (event) => {
+      const file = event.target.files[0];
+      if (file) {
+        const url = URL.createObjectURL(file);
+        video.src = url;
+        video.style.display = 'block';
+        uploadContainer.style.display = 'none';
+        video.play();
+      }
+    });
+
+    // Make video go fullscreen automatically
+    video.addEventListener('loadeddata', () => {
+      if (video.requestFullscreen) video.requestFullscreen();
+      else if (video.webkitRequestFullscreen) video.webkitRequestFullscreen();
+      else if (video.msRequestFullscreen) video.msRequestFullscreen();
+    });
+  </script>
 </body>
 </html>
